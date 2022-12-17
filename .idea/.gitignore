@@ -7,3 +7,9 @@
 /dataSources/
 /dataSources.local.xml
 *.idea
+/codeStyles/codeStyleConfig.xml
+/compiler.xml
+/domosolar-stack.iml
+/misc.xml
+/modules.xml
+/vcs.xml
