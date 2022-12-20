@@ -60,6 +60,7 @@ services:
       - ${BASE_PATH}/mosquitto:/mosquitto
       - ${BASE_PATH}/mosquitto/data:/mosquitto/data
       - ${BASE_PATH}/mosquitto/log:/mosquitto/log
+      - ${BASE_PATH}/mosquitto/config:/mosquitto/config
       - ./mosquitto/mosquito.conf:/mosquitto/config/mosquito.conf
     ports:
       - 1883:1883
