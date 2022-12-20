@@ -29,7 +29,7 @@ services:
       - influxdb
     ports:
       - ${GRAFANA_PORT}:3000
-    user: "1883"
+    user: "472"
 
   homeassistant:
     image: "ghcr.io/home-assistant/home-assistant:stable"
