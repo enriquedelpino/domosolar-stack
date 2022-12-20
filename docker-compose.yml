@@ -24,6 +24,7 @@ services:
   grafana:
     image: grafana/grafana-oss:8.4.3
     volumes:
+      - ${BASE_PATH}/grafana:/var/lib/grafana:rw
       - ${BASE_PATH}/grafana/config:/var/lib/grafana:rw
     depends_on:
       - influxdb
