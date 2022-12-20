@@ -22,6 +22,7 @@ services:
 #      - influxdb
 
   grafana:
+    user: "472"
     image: grafana/grafana-oss:8.4.3
     volumes:
       - ${BASE_PATH}/grafana:/var/lib/grafana:rw
@@ -29,7 +30,6 @@ services:
       - influxdb
     ports:
       - ${GRAFANA_PORT}:3000
-    user: "472"
 
   homeassistant:
     image: "ghcr.io/home-assistant/home-assistant:stable"
