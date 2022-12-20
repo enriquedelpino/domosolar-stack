@@ -4,7 +4,7 @@ services:
   influxdb:
     image: influxdb:2.1.1
     volumes:
-      - influxdb-storage:/var/lib/influxdb2:rw
+      - ${BASE_PATH}/influxdb:/var/lib/influxdb2:rw
     env_file:
       - .env
     entrypoint: ["./entrypoint.sh"]
@@ -24,7 +24,7 @@ services:
   grafana:
     image: grafana/grafana-oss:8.4.3
     volumes:
-      - grafana-storage:/var/lib/grafana:rw
+      - ${BASE_PATH}/home-assistant/config:/var/lib/grafana:rw
     depends_on:
       - influxdb
     ports:
@@ -34,7 +34,7 @@ services:
     container_name: homeassistant
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
-      - homeassistant-config:/var/lib/home-assistant/config
+      - ${BASE_PATH}/home-assistant/config:/var/lib/home-assistant/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
@@ -51,21 +51,16 @@ services:
     depends_on:
       - influxdb
     volumes:
-      - nodered-storage:/var/lib/node-red/data
+      - ${BASE_PATH}/node-red/data:/var/lib/node-red/data
 
   mosquitto:
     image: eclipse-mosquitto
     container_name: mosquitto
     volumes:
-      - /opt/mosquitto:/mosquitto
-      - /opt/mosquitto/data:/mosquitto/data
-      - /opt/mosquitto/log:/mosquitto/log
+      - ${BASE_PATH}/mosquitto:/mosquitto
+      - ${BASE_PATH}/mosquitto/data:/mosquitto/data
+      - ${BASE_PATH}/mosquitto/log:/mosquitto/log
     ports:
       - 1883:1883
       - 9001:9001
 
-volumes:
-  grafana-storage:
-  influxdb-storage:
-  homeassistant-config:
-  nodered-storage:
