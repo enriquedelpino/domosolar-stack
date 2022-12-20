@@ -62,8 +62,6 @@ services:
       - ${BASE_PATH}/mosquitto/data:/mosquitto/data:rw
       - ${BASE_PATH}/mosquitto/log:/mosquitto/log:rw
       - ${BASE_PATH}/mosquitto/config:/mosquitto/config:rw
-    entrypoint: [ "./entrypoint.sh" ]
-
     ports:
       - 1883:1883
       - 9001:9001
