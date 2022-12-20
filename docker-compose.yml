@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 
 services:
   influxdb:
@@ -62,8 +62,16 @@ services:
       - ${BASE_PATH}/mosquitto/data:/mosquitto/data:rw
       - ${BASE_PATH}/mosquitto/log:/mosquitto/log:rw
       - ${BASE_PATH}/mosquitto/config:/mosquitto/config:rw
+    entrypoint: [ "./entrypoint.sh" ]
+
     ports:
       - 1883:1883
       - 9001:9001
     user: "1882"
+    configs:
+      - source: mosquitto_config
+        target: /mosquitto/config
 
+configs:
+  mosquitto_config:
+    file: ./mosquitto/mosquitto.conf
