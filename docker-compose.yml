@@ -62,7 +62,7 @@ services:
       - ${BASE_PATH}/mosquitto/data:/mosquitto/data:rw
       - ${BASE_PATH}/mosquitto/log:/mosquitto/log:rw
       - ${BASE_PATH}/mosquitto/config:/mosquitto/config:rw
-      - ./mosquitto/mosquito.conf:/mosquitto/config/mosquito.conf
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
     ports:
       - 1883:1883
       - 9001:9001
