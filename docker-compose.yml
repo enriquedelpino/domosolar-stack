@@ -65,9 +65,11 @@ services:
       - 9001:9001
     user: "1882"
     configs:
-      - source: my_config
-        file: ./mosquitto/mosquitto.conf
+      - source: mosquitto_config
         target: /mosquitto/config
         uid: '103'
         gid: '103'
         mode: 0440
+configs:
+  mosquitto_config:
+    file: ./mosquitto/mosquitto.conf
