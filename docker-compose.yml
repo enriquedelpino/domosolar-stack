@@ -57,10 +57,10 @@ services:
     depends_on:
       - influxdb
     volumes:
-      - ${BASE_PATH}/mosquitto:/mosquitto
-      - ${BASE_PATH}/mosquitto/data:/mosquitto/data
-      - ${BASE_PATH}/mosquitto/log:/mosquitto/log
-      - ${BASE_PATH}/mosquitto/config:/mosquitto/config
+      - ${BASE_PATH}/mosquitto:/mosquitto:rw
+      - ${BASE_PATH}/mosquitto/data:/mosquitto/data:rw
+      - ${BASE_PATH}/mosquitto/log:/mosquitto/log:rw
+      - ${BASE_PATH}/mosquitto/config:/mosquitto/config:rw
       - ./mosquitto/mosquito.conf:/mosquitto/config/mosquito.conf
     ports:
       - 1883:1883
