@@ -66,10 +66,8 @@ services:
     user: "1882"
     configs:
       - source: my_config
+        file: ./mosquitto/mosquitto.conf
         target: /mosquitto/config
         uid: '103'
         gid: '103'
         mode: 0440
-configs:
-  my_config:
-    file: ./mosquitto/mosquitto.conf
