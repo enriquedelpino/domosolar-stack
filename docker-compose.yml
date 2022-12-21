@@ -2,7 +2,7 @@ services:
   influxdb:
     image: influxdb:2.1.1
     volumes:
-      - ${BASE_PATH}/influxdb:/var/lib/influxdb2:rw
+      - influxdb-volume:/var/lib/influxdb2:rw
     env_file:
       - .env
     entrypoint: ["./entrypoint.sh"]
@@ -10,20 +10,20 @@ services:
     ports:
       - ${DOCKER_INFLUXDB_INIT_PORT}:8086
 
-  telegraf:
-    image: telegraf:1.19
-    volumes:
-      - ${TELEGRAF_CFG_PATH}:/etc/telegraf/telegraf.conf:rw
-    env_file:
-      - .env
-    depends_on:
-      - influxdb
+#  telegraf:
+#    image: telegraf:1.19
+#    volumes:
+#      - ${TELEGRAF_CFG_PATH}:/etc/telegraf/telegraf.conf:rw
+#    env_file:
+#      - .env
+#    depends_on:
+#      - influxdb
 
   grafana:
     user: "472"
     image: grafana/grafana-oss:8.4.3
     volumes:
-      - ${BASE_PATH}/grafana:/var/lib/grafana:rw
+      - grafana-volume:/var/lib/grafana:rw
     depends_on:
       - influxdb
     ports:
@@ -32,7 +32,7 @@ services:
   homeassistant:
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
-      - ${BASE_PATH}/home-assistant/config:/var/lib/home-assistant/config
+      - home-assistant-volume:/var/lib/home-assistant/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
@@ -49,7 +49,7 @@ services:
     depends_on:
       - influxdb
     volumes:
-      - ${BASE_PATH}/node-red/data:/var/lib/node-red/data
+      - node-red-volume:/var/lib/node-red/data
 
   mosquitto:
     image: eclipse-mosquitto
@@ -57,10 +57,10 @@ services:
       - influxdb
     entrypoint: [ "./mosquitto-entrypoint.sh" ]
     volumes:
-      - ${BASE_PATH}/mosquitto:/mosquitto:rw
-      - ${BASE_PATH}/mosquitto/data:/mosquitto/data:rw
-      - ${BASE_PATH}/mosquitto/log:/mosquitto/log:rw
-      - ${BASE_PATH}/mosquitto/config:/mosquitto/config:rw
+      - mosquitto-volume:/mosquitto:rw
+      - mosquitto-volume-data:/mosquitto/data:rw
+      - mosquitto-volume-log:/mosquitto/log:rw
+      - mosquitto-volume-config:/mosquitto/config:rw
       - ${MOSQUITTO_CFG_PATH}:/mosquitto/config/mosquitto.conf:rw
 
     ports:
@@ -73,3 +73,13 @@ services:
 #configs:
 #  mosquitto_config:
 #    file: /mosquitto/mosquitto.conf
+
+volumes:
+  influxdb-volume:
+  grafana-volume:
+  home-assistant-volume:
+  node-red-volume:
+  mosquitto-volume:
+  mosquitto-volume-data:
+  mosquitto-volume-log:
+  mosquitto-volume-config:
