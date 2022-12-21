@@ -55,7 +55,6 @@ services:
     image: eclipse-mosquitto
     depends_on:
       - influxdb
-    entrypoint: [ "./mosquitto-entrypoint.sh" ]
     volumes:
       - mosquitto-volume:/mosquitto:rw
       - mosquitto-volume-data:/mosquitto/data:rw
